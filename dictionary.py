@@ -1,16 +1,21 @@
+import time
+import progressbar
+
+
 def read_file(filename):
     data = []
     count = 0
+    bar=progressbar.ProgressBar(max_value=1000000)
     with open(filename, 'r')as f:
         for line in f:
             data.append(line.strip())
             count += 1
-            if count % 1000 == 0:
-                print(len(data))
+            bar.update(count)
     return data
 
 
 def dic(data):
+    start_time = time.time()
     wc = {}
     for d in data:
         words = d.split(' ')
@@ -22,7 +27,10 @@ def dic(data):
     for word in wc:
         if wc[word] > 1000000:
             print(word, wc[word])
+    end_time = time.time()
     print(len(wc))
+    print(end_time - start_time)
+
     return wc
 
 
